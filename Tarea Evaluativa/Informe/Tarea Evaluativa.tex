@@ -1,0 +1,275 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Plantilla para un artículo en LaTeX en español.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Qué tipo de documento estamos por comenzar:
+\documentclass[a4paper]{article}
+% Esto es para que el LaTeX sepa que el texto está en español:
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+% Esto es para poder escribir acentos directamente:
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{listingsutf8}
+\usetikzlibrary{shapes,arrows,positioning}
+
+
+\lstset{
+	language=[x86masm]Assembler,
+	inputencoding=utf8,
+	language=Python,
+	basicstyle=\ttfamily\small,
+	commentstyle=\color{green!60!black},
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	frame=single,
+	rulecolor=\color{black},
+	tabsize=4,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	title=\lstname,
+	escapeinside={\%*}{*)},
+	morekeywords={def,for,in,range,if,else,return},
+	}
+
+
+%% Asigna un tamaño a la hoja y los márgenes
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Paquetes de la AMS
+\usepackage{amsmath, amsthm, amsfonts}
+%% Para añadir archivos con extensión pdf, jpg, png or tif
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+%% Primero escribimos el título
+\title{Tarea Evaluativa }
+\author{Abel Ponce González\\
+	Richard Alejandro Matos Arderí	
+}
+
+
+%% Después del "preámbulo", podemos empezar el documento
+
+\begin{document}
+	\maketitle
+	
+	\begin{flushleft}
+	
+      		\section{Ejercicio 18}
+      		
+      		
+      		\subsection*{Descripción}
+      		
+      		Dada una lista $L$ de $n$ elementos $a_{1}, a_{2}, ... a_{n}$ devolver el índice del mínimo elemento de $L$.
+      		
+      		\subsection*{Salida}
+      		
+      		Para la salida debe imprimir el mínimo elemento de $L$.
+      		
+      		Por ejemplo: para $L = [4, 3, 5, 6]$ debería imprimir: 
+      		
+      		\begin{lstlisting}
+      			1
+      		\end{lstlisting}      		
+      		
+      		\subsection*{Logisim}
+      		
+      		Se dispondrá en INPUT los datos de entrada a partir de la dirección 0. La entrada se estructura de la siguiente forma:
+      		
+      		\begin{itemize}
+      			
+      			\item $w_{0}: n $(Tamaño de la lista $L$)
+      			\item $w_{1:n} : L$
+      		\end{itemize}
+      		
+      		\subsection*{SASM}
+      		
+      		En la sección .data se deben definir los valores de entrada de la siguiente forma:
+      		
+      		\begin{itemize}
+      			
+      			\item $n$ : un número de tamaño $dd$ que representa al tamaño de la lista $L$
+      			
+      			\item $array$ : un array de números de tamaño $dd$ que representa $L$
+      			
+      			
+      		\end{itemize}
+      	
+      		Por ejemplo, un posible encabezado podría ser:
+      		
+      		\begin{lstlisting}
+      			section .data
+      			n dd 4
+      			array dd 4, 3, 5, 6
+      		\end{lstlisting}
+      		
+      		\subsection*{Código Ensamblador}
+      		
+      		Este código recorre la lista y mantiene un registro del mínimo encontrado junto con su índice. Al final, el registro ebx contendrá el índice del elemento mínimo.
+      		
+      		\section{Ejercicio 62}
+      		
+      		\subsection*{Descripción}
+      		
+      		 Determinar si una lista $a_{1}, a_{2}, ... a_{i}$ está ordenada en orden creciente o decreciente.
+      		 
+      		 \subsection*{Salida}
+      		 
+      		 Para la salida debe imprimir la C si está ordenada en orden creciente o D lo está en orden decreciente.\newline
+      		 
+      		 Por ejemplo: para $L = [3, 4, 6]$ debería imprimir:
+      		 
+      		 \begin{lstlisting}
+      		 	C
+      		 \end{lstlisting}
+      		 
+      		\subsection*{Logisim}
+      		
+      		Se dispondrá en INPUT los datos de entrada a partir de la dirección 0. La entrada se estructura de la siguiente forma:
+      		
+      		\begin{itemize}
+      			
+      			\item $w_{0}: n $(Tamaño de la lista $L$)
+      			\item $w_{1:n} : L$
+      		\end{itemize}
+      		 
+      		 	\subsection*{SASM}
+      		 
+      		 En la sección .data se deben definir los valores de entrada de la siguiente forma:
+      		 
+      		 \begin{itemize}
+      		 	
+      		 	\item $n$ : un número de tamaño $dd$ que representa al tamaño de la lista $L$
+      		 	
+      		 	\item $array$ : un array de números de tamaño $dd$ que representa $L$
+      		 	
+      		 	
+      		 \end{itemize}
+      		 
+      		 Por ejemplo, un posible encabezado podría ser:
+      		 
+      		 \begin{lstlisting}
+      		 	section .data
+      		 	n dd 3
+      		 	array dd 3, 4, 6
+      		 \end{lstlisting}
+      		 
+      		 
+      		 \section{Ejercicio 67}
+      		 
+      		 \subsection*{Descripción}
+      		 
+      		Dada una lista $L$ devolver la lista $L'$ que se obtiene al ordenar sus  elementos, utilizando un método de ordenación $O(n)$. Se conoce que todos los elementos de la lista están en un intervalo desde $a$ a $b$ (ambos enteros); es decir, si el intervalo es de $3$ a $6$, la lista contiene a $3, 4, 5$ y $6$, pero no necesariamente ordenados. Note que el tamaño de la lista depende siempre del intervalo.\newline
+      		
+      		Dado una lista $L$, de tamaño $n$, que contiene todos los elementos de un intervalo desde algún $a$ a un $b$ (ambos desconocidos a priori), ordene la lista $L$.
+      		 
+      		 \subsection*{Salida}
+      		 
+      		 Para la salida debe imprimir la lista $L$ ordenada de menor a mayor, separando cada elemento por un espacio en blanco.\newline
+      		 
+      		 Por ejemplo: para $L = [4, 3, 5, 6]$ debería imprimir:
+      		 
+      		 \begin{lstlisting}
+      		 	3 4 5 6
+      		 \end{lstlisting}
+      		 
+      		 	\subsection*{Logisim}
+      		 
+      		 Se dispondrá en INPUT los datos de entrada a partir de la dirección 0. La entrada se estructura de la siguiente forma:
+      		 
+      		 \begin{itemize}
+      		 	
+      		 	\item $w_{0}: n $(Tamaño de la lista $L$)
+      		 	\item $w_{1:n} : L$
+      		 \end{itemize}
+      		 
+      		 	\subsection*{SASM}
+      		 
+      		 En la sección .data se deben definir los valores de entrada de la siguiente forma:
+      		 
+      		 \begin{itemize}
+      		 	
+      		 	\item $n$ : un número de tamaño $dd$ que representa al tamaño de la lista $L$
+      		 	
+      		 	\item $array$ : un array de números de tamaño $dd$ que representa $L$
+      		 	
+      		 	
+      		 \end{itemize}
+      		 
+      		 Por ejemplo, un posible encabezado podría ser:
+      		 
+      		 \begin{lstlisting}
+      		 	section .data
+      		 	n dd 4
+      		 	array dd 4, 3, 5, 6
+      		 \end{lstlisting}
+      		 
+      		 
+      		 \section{Ejercicio 89}
+      			
+      	    \subsection*{Descripción}
+      	    
+      	    Dado un radio $r$ de una circunferencia hallar el área de la misma.
+      	     
+      	     \subsection*{Salida}
+      	     
+      	     Para la salida debe imprimir el valor del área de la circunferencia en $cm^2$. Asuma que $PI = 3, PI$ es un entero.\newline
+      	     
+      	     Por ejemplo: para $r = 2$ debería imprimir:
+      	     
+      	     \begin{lstlisting}
+      	     	12
+      	     \end{lstlisting}
+      	     
+      	     	\subsection*{Logisim}
+      	     
+      	     Se dispondrá en INPUT los datos de entrada a partir de la dirección 0. La entrada se estructura de la siguiente forma:
+      	     
+      	     \begin{itemize}
+      	     	
+      	     	\item $w_{0}: r$
+      	     \end{itemize}
+      	     
+      	     \subsection*{SASM}
+      	     
+      	     En la sección .data se deben definir los valores de entrada de la siguiente forma:
+      	     
+      	     \begin{itemize}
+      	     	
+      	     	\item $r$ : un número de tamaño $dw$ que representa $r$
+      	     	
+      	     \end{itemize}
+      	     
+      	     Por ejemplo, un posible encabezado podría ser:
+      	     
+      	     \begin{lstlisting}
+      	     	section .data
+      	     	r dw 2
+      	     \end{lstlisting}
+      			
+	 \end{flushleft}
+	 
+	 
+\end{document}
