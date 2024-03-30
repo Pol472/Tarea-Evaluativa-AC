@@ -22,6 +22,9 @@
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{listingsutf8}
+\usepackage{titlesec}
+\usepackage{sectsty}
+\usepackage{fontawesome}
 \usetikzlibrary{shapes,arrows,positioning}
 
 
@@ -30,7 +33,7 @@
 	inputencoding=utf8,
 	language=Python,
 	basicstyle=\ttfamily\small,
-	commentstyle=\color{green!60!black},
+	commentstyle=\color{green!50!black},
 	keywordstyle=\color{blue},
 	stringstyle=\color{red},
 	numbers=left,
@@ -64,9 +67,9 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 %% Primero escribimos el título
-\title{Tarea Evaluativa }
-\author{Abel Ponce González\\
-	Richard Alejandro Matos Arderí	
+\title{\textbf {Tarea Evaluativa} }
+\author{Abel Ponce González C211\\
+	Richard Alejandro Matos Arderí C211	
 }
 
 
@@ -74,11 +77,11 @@
 
 \begin{document}
 	\maketitle
-	
+
 	\begin{flushleft}
-	
-      		\section{Ejercicio 18}
-      		
+
+      		\section*{Ejercicio \textcolor{red}{18}}
+      	     \rule{\linewidth}{2pt}	
       		
       		\subsection*{Descripción}
       		
@@ -125,12 +128,60 @@
       			array dd 4, 3, 5, 6
       		\end{lstlisting}
       		
-      		\subsection*{Código Ensamblador}
       		
-      		Este código recorre la lista y mantiene un registro del mínimo encontrado junto con su índice. Al final, el registro ebx contendrá el índice del elemento mínimo.
+      		\subsection*{Seudocódigo}
       		
-      		\section{Ejercicio 62}
+      	      \begin{lstlisting} [language=Python]
+      	     def Minimun(size, lista):
+      	     	a = 0
+      	     	i = 1
+      	     		while i < size:
+      	     			if lista[i] < lista[a]:
+      	     				a = i
+      	     			i = i + 1
+      	     	return a 
+      	     \end{lstlisting}
+      		 
+      		 \begin{figure}[ht]
+      		 	\centering
+      		 	\subsection*{DIAGRAMA}
+      		 	\begin{tikzpicture}
+      		 		
+      		 		\node (idle) [fill= blue, text= white, rectangle] {IDLE};
+      		 		\node (start) [fill= red, diamond, draw = orange, below= 0.3cm of idle] {START};
+      		 		\node (asignar) [fill=green, circle, draw=yellow, below=0.3cm of start, align=center] {$n = w_0$\\$a = 0$ \\ $i = 1$ \\ $min = L[0]$};
+      		 		\node (while) [fill=blue, text= white, rectangle, below= 0.3 of asignar] {WHILE};
+      		 		\node (i < n) [fill= red, diamond, draw = orange, below= 0.3cm of while] {i < n};
+      		 		\node (end) [fill= blue, text= white, rectangle, left = 0.3cm of i < n] {END};
+      		 		
+      		 		\node (l[i] < l[a]) [fill= red, diamond, draw = orange, below= 0.3cm of i < n] {L[i] < L[a]};
+      		 		
+      		 	\node (update) [fill=green, circle, draw=yellow, below =0.3cm of {l[i] < l[a]}, align=center] {$a = i$};
+      		 	
+      		 		\node (after if) [fill=blue, text= white, rectangle, right= 0.3 of i < n] {AFTER IF};
+      		 		
+      		 		\node (incremento) [fill=green, circle, draw=yellow, right=0.47cm of while, align=center] {$i = i + 1$};
+      		 		
+      		 		
+      		 		\draw[->,thick] (idle) -- (start);
+      		 		\draw[->,thick] (start) -- (asignar);
+      		 		\draw[->,thick] (asignar) -- (while);
+      		 		\draw[->,thick] (start) -- (2,-1.5) -- (2,0) -- (idle);
+      		 	    \draw[->,thick] (while) -- (i < n);
+      		 	    \draw[->,thick] (i < n) -- (end);
+      		 	    \draw[->,thick] (end) -- (-1.55,0) -- (idle);
+      		 	    \draw[->,thick] (i < n) -- (l[i] < l[a]);
+      		 	    \draw[->,thick] (l[i] < l[a]) -- (update);
+      		 	    \draw[->,thick] (incremento) -- (while);
+      		 	    \draw[->,thick] (after if) -- (incremento);
+      		 	    \draw[->,thick] (l[i] < l[a]) -- (1.5, -9.49) -- (1.5, -7.43);
+      		 	    \draw[->,thick] (update) -- (2.6,-11.57) -- (2.6, - 7.43);
+      		 		
+      		 	\end{tikzpicture}
+      		 \end{figure}
       		
+      		\section*{Ejercicio \textcolor{red}{62}}
+      		 \rule{\linewidth}{2pt}	
       		\subsection*{Descripción}
       		
       		 Determinar si una lista $a_{1}, a_{2}, ... a_{i}$ está ordenada en orden creciente o decreciente.
@@ -176,9 +227,86 @@
       		 	array dd 3, 4, 6
       		 \end{lstlisting}
       		 
+      		 \subsection*{Seudocódigo}
       		 
-      		 \section{Ejercicio 67}
+      		 \begin{lstlisting} [language=Python]
+      		 	def Ordenacion (n, lista):
+      		 	
+      		 		C = False
+      		 		D = False
+      		 		i = 0
+      		 	
+      		 		while i < n - 1:
+      		 	
+      		 			if lista[i + 1] > lista[i]:  C = True
+      		 	
+      		 			elif lista[i + 1] < lista[i]:  D = True
+      		 	
+      		 			if D & C : break
+      		 	
+      		 			i = i + 1
+      		 	
+      		 		if D & C : return "NO ORDENADA"
+      		 		elif D : return "D"
+      		 		else : return "C"
+      		 \end{lstlisting}
+      		  \begin{figure}[ht]
+      		 	\centering
+      		 	\subsection*{DIAGRAMA}
+      		 	\begin{tikzpicture}
+      		 		
+      		 		\node (idle) [fill= black, text= white, rectangle] {IDLE};
+      		 		\node (start) [fill= purple, text=white, diamond, draw = red, below= 0.3cm of idle] {START};
+      		 		\node (asignar) [fill=pink, circle, below=0.3cm of start, align=center] {$n= w_0$\\$C = 0$ \\ $D = 0$ \\ $i = 0$};
+      		 		
+      		 		\node (while) [fill=black, text= white, rectangle, below= 0.3 of asignar] {WHILE};
+      		 		\node (i < n - 1) [fill= purple, text=white, diamond, draw = red, below= 0.5cm of while] {i < n - 1};
+      		 		\node (end) [fill= black, text= white, rectangle, left = 0.3cm of i < n - 1] {END};
+      		 		
+      		 		\node (l[i + 1] > l[i]) [fill= purple, text= white, diamond, draw = red, below= 0.4cm of i < n] {L[i + 1] > L[i]};
+      		 		
+      		 		\node (C = 1) [fill=pink, circle, left =0.47cm of {l[i + 1] > l[i]}, align=center] {$C = 1$};
+      		 		
+      		 		\node (l[i + 1] < l[i]) [fill= purple, text= white, diamond, draw = red, below= 0.3cm of {l[i + 1] > l[i]}] {L[i + 1] < L[i]};
+      		 		
+      		 		\node (D = 1) [fill=pink, circle, left =0.47cm of {l[i + 1] < l[i]}, align=center] {$D = 1$};
+      		 		
+      		 			
+      		 		\node (after if) [fill=black, text= white, rectangle, left= 0.3 of {C = 1}] {AFTER IF};
+      		 		
+      		 		\node (incremento) [fill=pink, circle, left=1.5cm of while, align=center] {$i = i + 1$};
+      		 		
+      		 		\node (no ordenada) [fill= purple, text=white, diamond, draw = red, left= 1.34cm of {end}] {$C \land D$};
+      		 		
+      		 		
+      		 		
+      		 		\draw[->,thick] (idle) -- (start);
+      		 		\draw[->,thick] (start) -- (asignar);
+      		 		\draw[->,thick] (asignar) -- (while);
+      		 		\draw[->,thick] (start) -- (2,-1.5) -- (2,0) -- (idle);
+      		 		\draw[->,thick] (while) -- (i < n - 1);
+      		 		\draw[->,thick] (i < n - 1) -- (end);
+      		 		\draw[->,thick] (end) -- (-1.83,0) -- (idle);
+      		 		\draw[->,thick] (i < n - 1) -- (l[i + 1] > l[i]);
+      		 		\draw[->,thick] (l[i + 1] > l[i]) -- (l[i + 1] < l[i]);
+      		 		\draw[->,thick] (incremento) -- (while);
+      		 	    \draw[->,thick] (l[i + 1] > l[i]) -- (C = 1);
+      		 	    \draw[->,thick] (l[i + 1] < l[i]) -- (D = 1);
+      		 		\draw[->,thick] (C = 1) -- (after if);
+      		 		\draw[->,thick] (l[i + 1] < l[i]) -- (0, -15.5) -- (-5.2, -15.5) -- (-5.2, -10.12);
+      		 		\draw[->,thick] (D = 1) -- (-4, -13.23) -- (-4, -10.12);
+      		 		\draw[->,thick] (after if) -- (no ordenada);
+      		 		\draw[->,thick] (no ordenada) -- (end);
+      		 		\draw[->,thick] (no ordenada) -- (-4.53, -5.4) -- (incremento);
+      		 		
+      		 		
+      		 	\end{tikzpicture}
+      		 \end{figure}
       		 
+      		    
+      		 \newpage
+      		 \section*{Ejercicio \textcolor{red}{67}}
+      		  \rule{\linewidth}{2pt}	
       		 \subsection*{Descripción}
       		 
       		Dada una lista $L$ devolver la lista $L'$ que se obtiene al ordenar sus  elementos, utilizando un método de ordenación $O(n)$. Se conoce que todos los elementos de la lista están en un intervalo desde $a$ a $b$ (ambos enteros); es decir, si el intervalo es de $3$ a $6$, la lista contiene a $3, 4, 5$ y $6$, pero no necesariamente ordenados. Note que el tamaño de la lista depende siempre del intervalo.\newline
@@ -226,9 +354,86 @@
       		 	array dd 4, 3, 5, 6
       		 \end{lstlisting}
       		 
+      		 \subsection*{Seudocódigo}
       		 
-      		 \section{Ejercicio 89}
-      			
+      		 \begin{lstlisting} [language=Python]
+      		 def Order_On(n, L):
+      		 
+      			a = 0
+      		 	i = 1
+      		 	
+      		 	while i < n:
+      		 	
+      		 		if L[i] < L[a]:
+      		 			a = i
+      		 		
+      		 		i = i + 1
+      		 
+      		 	i = 1
+      		 	L[0] = L[a]
+      		 
+      		 	while i < n :
+      		 		L[i] = L[i - 1] + 1
+      		 		i = i + 1
+      		 		
+      		 	return L
+      		 \end{lstlisting}
+      		  \begin{figure}[ht]
+      		 	\centering
+      		 	\subsection*{DIAGRAMA}
+      		 	\begin{tikzpicture}
+      		 		
+      		 		\node (idle) [fill= black, text= white, rectangle] {IDLE};
+      		 		\node (start) [fill= red, diamond, draw = orange, below= 0.3cm of idle] {START};
+      		 		\node (asignar) [fill=gray, text = white, circle, below=0.3cm of start, align=center] {$n = w_0$\\$a = 0$ \\ $i = 1$ \\ $min = L[0]$};
+      		 		\node (while) [fill=black, text= white, rectangle, below= 0.3 of asignar] {$WHILE_1$};
+      		 		
+      		 		\node (i < n) [fill= red, diamond, draw = orange, below= 0.3cm of while] {i < n};
+      		 		
+      		 		\node (after while) [fill= black, text= white, rectangle, left = 1cm of i < n] {AFTER WHILE};
+      		 		
+      		 		\node (l[i] < l[a]) [fill= red, diamond, draw = orange, below= 0.3cm of i < n] {L[i] < L[a]};
+      		 		
+      		 		\node (update) [fill=gray, text = white, circle, below =0.3cm of {l[i] < l[a]}, align=center] {$a = i$};
+      		 		
+      		 		\node (after if) [fill=black, text= white, rectangle, right= 0.3 of i < n] {AFTER IF};
+      		 		
+      		 		\node (incremento) [fill=gray, text = white, circle, right=0.32cm of while, align=center] {$i = i + 1$};
+      		 		
+      		 		\node (reasignacion) [fill=gray, text = white, circle, above=0.47cm of {after while}, align=center] {$i = 1$ \\ L[0] = min};
+      		 		
+      		 		
+      		 		\node (while_2) [fill=black, text= white, rectangle, above= 0.3 of reasignacion] {$WHILE_2$};
+      		 	
+      		 		\node (i < n_0) [fill= red, diamond, draw = orange, above= 1cm of while_2] {i < n};
+      		 		
+      		 		\node (ordenar) [fill=gray, text = white, circle, left=0.32cm of {i < n_0}, align=center] { L[i] = L[i - 1] + 1\\$i = i + 1$};
+      		 		
+      		 		\draw[->,thick] (idle) -- (start);
+      		 		\draw[->,thick] (start) -- (asignar);
+      		 		\draw[->,thick] (asignar) -- (while);
+      		 		\draw[->,thick] (start) -- (2,-1.5) -- (2,0) -- (idle);
+      		 		\draw[->,thick] (while) -- (i < n);
+      		 		\draw[->,thick] (i < n) -- (after while);
+      		 		\draw[->,thick] (i < n) -- (l[i] < l[a]);
+      		 		\draw[->,thick] (l[i] < l[a]) -- (update);
+      		 		\draw[->,thick] (incremento) -- (while);
+      		 		\draw[->,thick] (after if) -- (incremento);
+      		 		\draw[->,thick] (l[i] < l[a]) -- (1.5, -9.49) -- (1.5, -7.43);
+      		 		\draw[->,thick] (update) -- (2.6,-11.57) -- (2.6, - 7.43);
+      		 		\draw[->,thick] (after while) -- (reasignacion);
+      		 		\draw[->,thick] (reasignacion) -- (while_2);
+      		 		\draw[->,thick] (while_2) -- (i < n_0);
+      		 		\draw[->,thick] (i < n_0) -- (-1.5, -1.75) -- (-1.5, 0) -- (idle);
+      		 		\draw[->,thick] (i < n_0) -- (ordenar);
+      		 		\draw[->,thick] (ordenar) -- (-5.8, -3.8) -- (while_2);
+      		 		
+      		 	\end{tikzpicture}
+      		 \end{figure}
+      		 \newpage
+      		 
+      		\section*{Ejercicio \textcolor{red}{89}}
+      				 \rule{\linewidth}{2pt}	
       	    \subsection*{Descripción}
       	    
       	    Dado un radio $r$ de una circunferencia hallar el área de la misma.
@@ -269,6 +474,53 @@
       	     	r dw 2
       	     \end{lstlisting}
       			
+      			
+      			 \subsection*{Seudocódigo}
+      			
+      			\begin{lstlisting} [language=Python]
+      			def Area (r):
+      				return 3*r*r
+      			\end{lstlisting}
+      		   
+      		   \begin{figure}[ht]
+      		   	\centering
+      		   	 \subsection*{DIAGRAMA}
+      		   	\begin{tikzpicture}
+      		   	
+      		   		\node (idle) [fill= magenta, text= white, rectangle] {IDLE};
+      		   		\node (start) [fill= teal, diamond, draw = orange, below= 0.3cm of idle] {START};
+      		   		\node (asignar) [fill=lime, circle, draw=yellow, below= 0.3cm of start] {$A = 3 \cdot r^2$};
+      		   		\node (end) [fill=magenta, text= white, rectangle, below= 0.3 of asignar] {END};
+      		   	    
+      		   	
+      		   		\draw[->,thick] (idle) -- (start);
+      		   		\draw[->,thick] (start) -- (asignar);
+      		   		\draw[->,thick] (asignar) -- (end);
+      		   		\draw[->,thick] (end) -- (-2, -5.08) -- (-2,0) -- (idle);
+      		   		\draw[->,thick] (start) -- (2,-1.5) -- (2,0) -- (idle);
+      		   	
+      		   	\end{tikzpicture}
+      		   \end{figure}
+      		   
+      		 
+      		   
+      		   \begin{table}[ht]
+      		   	\centering
+      		   	  \subsection*{ASIGNACIONES}
+      		   	\begin{tabular}{|c|c|c|}
+      		   		\hline
+      		   		$L_{a}$ & $r$ & $A$ \\
+      		   		\hline
+      		   		0 & $r$ & 0 \\
+      		   		\hline
+      		   		1 & $r$ & $3\cdot r^2$ \\
+      		   		\hline
+      		   	\end{tabular}
+      		   
+      		   \end{table}
+      		   
+      		   
+      		   
 	 \end{flushleft}
 	 
 	 
